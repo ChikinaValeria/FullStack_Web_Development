@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <div id="cont0">foo</div>
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      
+      class VeryInterestingComponent extends React.Component {
+        render() {
+          return (
+            <div>
+              <p>The eagle is a bird having typically 2 legs.</p>
+              <p><strong>The cat is a mammal having typically 4 legs.</strong></p>
+              <p>The pike is a fish without legs.</p>
+              <p>The whiskered bat is a mammal having typically 2 legs.</p>
+            </div>
+          );
+        }
+      }
+      
+      const el = document.getElementById('cont0');
+      const root = ReactDOM.createRoot(el);
+      root.render(<VeryInterestingComponent />);
+    </script>
+  </body>
+
+</html>
