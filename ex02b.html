@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+      }
+      .block-row {
+        margin-bottom: 20px; /* Увеличивает расстояние между строками */
+        display: flex;
+        justify-content: center;
+        gap: 10px; /* Увеличивает расстояние между элементами в строке */
+      }
+      .element-block {
+        display: flex;
+        align-items: center;
+        gap: 5px; /* Увеличивает расстояние между текстом и кнопкой */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="cont0"></div>
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      
+      class ElementBlock extends React.Component {
+        render() {
+          return (
+            <span className="element-block">
+              {this.props.text}
+              <button>{this.props.number}</button>
+            </span>
+          );
+        }
+      }
+
+      class ElementBlockRow extends React.Component {
+        render() {
+          var blocks = [];
+          for (var i = 1; i <= this.props.count; i++) {
+            blocks.push(
+              <ElementBlock 
+                key={"block-" + i} 
+                text={this.props.text} 
+                number={i} 
+              />
+            );
+          }
+          return <div className="block-row">{blocks}</div>;
+        }
+      }
+
+      class VeryInterestingComponent extends React.Component {
+        render() {
+          return (
+            <div>
+              <ElementBlockRow count={3} text={"aardvark"} />
+              <ElementBlockRow count={5} text={"penguin"} />
+              <ElementBlockRow count={8} text={"panther"} />
+            </div>
+          );
+        }
+      }
+      
+      const el = document.getElementById('cont0');
+      const root = ReactDOM.createRoot(el);
+      root.render(<VeryInterestingComponent />);
+    </script>
+  </body>
+
+</html>
