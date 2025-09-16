@@ -7,21 +7,42 @@
   </head>
 
   <body>
-    <div id="cont0">foo</div>
+    <div id="cont0"></div>
     
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
       
+        const Animal = (props) => {
+          const { name, type, legs, important } = props;
+          
+          let legText;
+          if (legs === 0) {
+            legText = "without legs";
+          } else if (legs === 1) {
+            legText = "having typically 1 leg";
+          } else {
+            legText = `having typically ${legs} legs`;
+          }
+          
+          const content = `The ${name} is a ${type} ${legText}.`;
+          
+          if (important) {
+            return <p><strong>{content}</strong></p>;
+          } else {
+            return <p>{content}</p>;
+          }
+      };
+
       class VeryInterestingComponent extends React.Component {
         render() {
           return (
             <div>
-              <p>The eagle is a bird having typically 2 legs.</p>
-              <p><strong>The cat is a mammal having typically 4 legs.</strong></p>
-              <p>The pike is a fish without legs.</p>
-              <p>The whiskered bat is a mammal having typically 2 legs.</p>
+              <Animal name="eagle" type="bird" legs={2} />
+              <Animal name="cat" type="mammal" legs={2} important={true} />
+              <Animal name="pike" type="fish" legs={0} />
+              <Animal name="whiskered bat" type="mammal" legs={2} />
             </div>
           );
         }
