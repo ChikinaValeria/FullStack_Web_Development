@@ -103,7 +103,7 @@ font-size: 1.125rem;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px var(--color-shadow);
-  border-left: 5px solid #3b82f6;
+  border-left: 5px solid #f6f33b;
 }
 
 .task-name {
@@ -123,8 +123,8 @@ font-size: 1.125rem;
 
 .task-tag {
   display: inline-block;
-  background-color: #dbeafe; 
-  color: #1e40af;
+  background-color: hsl(75, 95%, 93%); 
+  color: #df7f11;
   padding: 4px 10px;
   border-radius: 9999px; 
   font-size: 0.875rem;

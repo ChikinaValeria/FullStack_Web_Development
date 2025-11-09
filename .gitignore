@@ -2,3 +2,5 @@
 ex3/.vscode/
 ex3/node_modules
 ex3/.gitignore
+MovieCollectionApp/node_modules
+MovieCollectionApp/.vscode/
