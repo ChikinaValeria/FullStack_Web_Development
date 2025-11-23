@@ -1,0 +1,36 @@
+### get
+
+GET http://localhost:8000/
+
+### get movie by id
+
+GET http://localhost:8000/movies/1
+
+### get all movies
+GET http://localhost:8000/movies
+
+### create new movie
+
+POST http://localhost:8000/movies
+Content-Type: application/json
+
+{
+    "title": "The Alien",
+    "director": "Helen Repley",
+    "year": 1978
+
+}
+
+### edit movie
+PATCH http://localhost:8000/movies/4
+Content-Type: application/json
+
+{
+    //"title": "The Alien",
+    //"director": "Helen Repley",
+    "year": 1956
+
+}
+
+### delete movie
+DELETE http://localhost:8000/movies/4
