@@ -8,6 +8,10 @@ import { MongoClient } from "mongodb";
 const app = express()
 app.use(express.json())
 
+app.get('/', (req, res) => {
+    res.send("Server is alive!");
+});
+
 // Read the environment values from .env
 const uri = process.env.MONGODB_URI;
 if(!uri){
@@ -63,60 +67,59 @@ app.listen( port, () => {
     console.log("Server listening on http://localhost:3000")
 })
 
-// Let's implement a simple GET method GET /students
+// Let's implement a simple GET method GET /movies
 
 // DB connection is over the cloud so every operation is basically async
-app.get("/students", async (req, res)=> {
+app.get("/movies", async (req, res)=> {
     try {
-        // Get all students from the database. Find with only {} finds with no filters
-        let result = await studentCollection.find({}).toArray();
+        // Get all movies from the database. Find with only {} finds with no filters
+        let result = await movieCollection.find({}).toArray();
 
-        if(req.query.campus){
-            const campus = req.query.campus.toLowerCase()
-            // return students only from that campus
-            result = result.filter( student => student.campus.toLowerCase() === campus )
+        if(req.query.title){
+            const title = req.query.title.toLowerCase()
+            result = result.filter( movie => movie.title.toLowerCase() === title )
          }
 
-        if(req.query.creditPointsMin){
-            const min = parseInt(req.query.creditPointsMin)
-            if(isNaN(min)){
-                return res.status(400).send("Invalid credit points in the query parameter")
+        if( req.query.year){
+            const requestedYear = parseInt(req.query.year);
+
+            if(isNaN(requestedYear)){
+                return res.status(400).send("Invalid 'year' parameter. Must be a number.");
             }
-            result = result.filter( student => student.creditPoints >= min)
+            result = result.filter( movie => movie.year === requestedYear );
         }
 
-        if( req.query.name){
-            const name = req.query.name.toLowerCase()
-            result = result.filter( student => student.name.toLowerCase() === name )
+        if( req.query.director){
+            const director = req.query.director.toLowerCase()
+            result = result.filter( movie => movie.director.toLowerCase() === director )
         }
         res.json(result);
     }
     catch( err ){
-        console.log( "GET / students error: ", err)
+        console.log( "GET / movies error: ", err)
         res.status(500).json({error: "Internal server error. Some problem with the database."})
     }
 });
 
 // add some basic crud operations with MongoDB
-app.get('/students/:id', async (req,res)=>{
+app.get('/movies/:id', async (req,res)=>{
 
     try {
-        // Find the student with the given id and return if found
+        // Find the movie with the given id and return if found
         const id = parseInt(req.params.id)
-        //const student = students.find( student => student.id == id)
         // Get the student from the Mongo DB
-        const student = await studentCollection.findOne({id});
-        if( student ){
-            res.json(student); // 200 OK
+        const movie = await movieCollection.findOne({id});
+        if( movie ){
+            res.json(movie); // 200 OK
         }
         else{
-            res.status(404).json({message: 'Student with that id not found'});
+            res.status(404).json({message: 'Movie with that id not found'});
         }
     } catch (error){
         res.status(500).send("Internal server error with DB connection: ", err)
     }
 });
-
+/*
 // Post /students -> add new student. When posting, we need to validate the data (e.g. unique id, legal name and positive credit points etc.)
 app.post('/students', async (req, res)=> {
 
@@ -209,6 +212,7 @@ app.delete('/students/:id', async (req, res ) => {
         res.status(500).send("Internal server error with DELETE /student:id")
     }
 })
+    */
 
 // 404 fallback
 app.use((req, res) => {
@@ -216,7 +220,7 @@ app.use((req, res) => {
 });
 
 
-
+/*
 async function generateNextId() {
     // 1. Находим студента с максимальным id
     const maxIdStudent = await studentCollection.findOne(
@@ -247,4 +251,6 @@ function validateStudentData(student){
     // Todo: more rules if needed
 
     return null // the data is valid :)
+
 }
+*/
