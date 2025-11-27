@@ -1,4 +1,4 @@
-// This is needed for the access to .env
+//access to .env
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -17,10 +17,10 @@ if(!uri){
 const dbName = process.env.MONGODB_NAME;
 const port = process.env.PORT;
 
-// Connect the MongoDB Cluster (remember that this IP should be in the allowed IPs list)
+// Connect the MongoDB Cluster
 const client = new MongoClient(uri)
 
-// Let's create some sample data (initial students)
+//sample data (initial movies)
 const initialMovies = [
     { id: 1, title: "Inception", director: "Christopher Nolan", year: 2010 },
     { id: 2, title: "The Matrix", director: "The Wachowskis", year: 1999 },
@@ -29,7 +29,7 @@ const initialMovies = [
 
 let movieCollection;
 
-// Let's create a function to connect to Mongo and seed data if collection is empty
+// function to connect to Mongo and seed data if collection is empty
 async function initDatabase() {
     try {
         await client.connect();
@@ -55,17 +55,15 @@ async function initDatabase() {
 
 }
 
-// First we init the database (connect and if needed, create some seed movies)
+//init the database
 await initDatabase()
 
-// Then we can start the server
+//start the server
 app.listen( port, () => {
     console.log("Server listening on http://localhost:3000")
 })
 
-// Let's implement a simple GET method GET /movies
-
-// DB connection is over the cloud so every operation is basically async
+// DB connection is over the cloud so every operation is async
 app.get("/movies", async (req, res)=> {
     try {
         // Get all movies from the database. Find with only {} finds with no filters
@@ -97,13 +95,13 @@ app.get("/movies", async (req, res)=> {
     }
 });
 
-// add some basic crud operations with MongoDB
+
 app.get('/movies/:id', async (req,res)=>{
 
     try {
         // Find the movie with the given id and return if found
         const id = parseInt(req.params.id)
-        // Get the student from the Mongo DB
+        // Get the movie from the Mongo DB
         const movie = await movieCollection.findOne({id});
         if( movie ){
             res.json(movie); // 200 OK
@@ -116,7 +114,7 @@ app.get('/movies/:id', async (req,res)=>{
     }
 });
 
-// Post /movie -> add new movie. When posting, we need to validate the data
+// before posting validate the data
 app.post('/movies', async (req, res)=> {
     try {
         // validate the movie through a validation function (validates the data)
@@ -145,15 +143,14 @@ app.post('/movies', async (req, res)=> {
 
 });
 
-// Update a movie data
 app.put('/movies/:id', async (req, res)=>{
     try {
         const id = parseInt(req.params.id);
-        // First verify that the id is an integer
+        //verify that the id is an integer
         if(isNaN(id))
             return res.status(400).send("Invalid movie ID")
 
-        // Let's find the movie with that ID. If not found, return 404
+        // find the movie with that ID
         const existing = await movieCollection.findOne({id});
         if(!existing){
             return res.status(404).send("No movie with that ID found")
@@ -183,7 +180,6 @@ app.put('/movies/:id', async (req, res)=>{
 
 });
 
-// Delete movie by id
 app.delete('/movies/:id', async (req, res ) => {
     try {
         const id = parseInt(req.params.id)
@@ -208,19 +204,17 @@ app.use((req, res) => {
   res.status(404).send("Oops. Not found!");
 });
 
-
-
 async function generateNextId() {
-    // 1. Находим фильм с максимальным id
+    // find movie with max id
     const maxIdMovie = await movieCollection.findOne(
-        {}, // Фильтр: без фильтрации, ищем по всей коллекции
+        {}, //no filter, searching through entire collection
         {
-            sort: { id: -1 }, // Сортируем по полю 'id' в порядке убывания (от большего к меньшему)
-            projection: { id: 1, _id: 0 } // Включаем только поля 'id' и исключаем '_id'
+            sort: { id: -1 }, // sorting by id desc
+            projection: { id: 1, _id: 0 } // including id, excluding _id
         }
     );
 
-    // 2. Если коллекция пуста, начинаем с 1. Иначе берем max ID и добавляем 1.
+    // if the collection is empty, start with one, else max+1
     if (!maxIdMovie) {
         return 1;
     } else {
