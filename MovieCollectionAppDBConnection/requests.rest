@@ -1,0 +1,43 @@
+### 1) get main page
+GET http://localhost:3000/movies
+
+### 2) get movie with id 2
+GET http://localhost:3000/movies/1
+
+### 3) add new movie
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+    "title": "The Departed",
+    "director": "Christopher Nolan",
+    "year": 2019
+
+}
+
+### 4) get with query parameters
+GET http://localhost:3000/movies?director=Christopher NoLaN&year=2010
+
+#### 5) add new movie  - duplication
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+    "id": 5,
+    "title": "The Alien",
+    "director": "Christopher Nolan",
+    "year": 2019
+}
+
+### patch
+PATCH http://localhost:3000/movies/4
+Content-Type: application/json
+
+{
+    "title": "The departed-3",
+    "director": "Helena Scorsese",
+    "year": 2020
+}
+
+### delete movie by id
+DELETE http://localhost:3000/movies/1
