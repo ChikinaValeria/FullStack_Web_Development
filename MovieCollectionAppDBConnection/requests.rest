@@ -40,4 +40,4 @@ Content-Type: application/json
 }
 
 ### delete movie by id
-DELETE http://localhost:3000/movies/1
+DELETE http://localhost:3000/movies/4

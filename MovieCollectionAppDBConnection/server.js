@@ -8,10 +8,6 @@ import { MongoClient } from "mongodb";
 const app = express()
 app.use(express.json())
 
-app.get('/', (req, res) => {
-    res.send("Server is alive!");
-});
-
 // Read the environment values from .env
 const uri = process.env.MONGODB_URI;
 if(!uri){
@@ -190,26 +186,27 @@ app.put('/students/:id', async (req, res)=>{
     }
 
 })
+    */
 
-// Delete student by id
-app.delete('/students/:id', async (req, res ) => {
+// Delete movie by id
+app.delete('/movies/:id', async (req, res ) => {
     try {
         const id = parseInt(req.params.id)
         if(isNaN(id))
-            return res.status(400).send("Invalid student ID")
+            return res.status(400).send("Invalid movie ID")
 
-        const result = await studentCollection.deleteOne({id});
+        const result = await movieCollection.deleteOne({id});
 
         if( result.deletedCount === 0 ){
-            return res.status(404).send("No student with that ID found. Nothing deleted")
+            return res.status(404).send("No movie with that ID found. Nothing deleted")
         }
 
         res.status(204).end()
     }catch (err){
-        res.status(500).send("Internal server error with DELETE /student:id")
+        res.status(500).send("Internal server error with DELETE /movie:id")
     }
 })
-    */
+
 
 // 404 fallback
 app.use((req, res) => {
