@@ -11,12 +11,12 @@ Content-Type: application/json
 {
     "title": "The Departed",
     "director": "Christopher Nolan",
-    "year": 2019
+    "year": 1345
 
 }
 
 ### 4) get with query parameters
-GET http://localhost:3000/movies?director=Christopher NoLaN&year=2010
+GET http://localhost:3000/movies?year=1999
 
 #### 5) add new movie  - duplication
 POST http://localhost:3000/movies

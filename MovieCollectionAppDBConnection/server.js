@@ -119,40 +119,37 @@ app.get('/movies/:id', async (req,res)=>{
         res.status(500).send("Internal server error with DB connection: ", err)
     }
 });
-/*
-// Post /students -> add new student. When posting, we need to validate the data (e.g. unique id, legal name and positive credit points etc.)
-app.post('/students', async (req, res)=> {
 
+// Post /movie -> add new movie. When posting, we need to validate the data
+app.post('/movies', async (req, res)=> {
     try {
-        // validate the student through a validation function (validates the data)
-        const error = validateStudentData(req.body)
+        // validate the movie through a validation function (validates the data)
+        const error = validateMovieData(req.body)
         if(error ){
             return res.status(400).send(error); // invalid data
         }
 
-        // Ok. We can proceed with creating a new student
-        const {name, age, creditPoints, campus} = req.body
-        const newStudent = {
+        const {title, director, year} = req.body
+        const newMovie = {
             id: await generateNextId(),
-            name,
-            age,
-            campus,
-            creditPoints // todo: generate a new one
+            title,
+            director,
+            year
         };
 
-        // Add the new student to MongoDB
-        const result = await studentCollection.insertOne( newStudent )
+        // Add the new movie to MongoDB
+        const result = await movieCollection.insertOne( newMovie )
 
-        res.status(201).json(newStudent)
+        res.status(201).json(newMovie)
     } catch (err){
-        console.error("Error inserting student:", err);
-        res.status(500).send("Internal server error with POST/ students")
+        console.error("Error inserting movie:", err);
+        res.status(500).send("Internal server error with POST/ movie")
     }
-    // Test this with .rest client etc -> the new student shoud appear in MongoDB
+
 
 });
 
-
+/*
 // Update a student data (student with a specific id)
 app.put('/students/:id', async (req, res)=>{
     try {
@@ -220,10 +217,10 @@ app.use((req, res) => {
 });
 
 
-/*
+
 async function generateNextId() {
     // 1. Находим студента с максимальным id
-    const maxIdStudent = await studentCollection.findOne(
+    const maxIdMovie = await movieCollection.findOne(
         {}, // Фильтр: без фильтрации, ищем по всей коллекции
         {
             sort: { id: -1 }, // Сортируем по полю 'id' в порядке убывания (от большего к меньшему)
@@ -232,25 +229,21 @@ async function generateNextId() {
     );
 
     // 2. Если коллекция пуста, начинаем с 1. Иначе берем max ID и добавляем 1.
-    if (!maxIdStudent) {
+    if (!maxIdMovie) {
         return 1;
     } else {
-        return maxIdStudent.id + 1;
+        return maxIdMovie.id + 1;
     }
 }
 
-// Our data validation helper function in JavaScript
-function validateStudentData(student){
-    // Destruct the student object properties (check ES6+ object destruct)
-    // Modern way ES 6+ object destruct in one row
-    const {name, age, creditPoints, campus} = student
 
-    if(!name || typeof name !== 'string') return "Invalid or missing 'name'"
-    if( age === undefined || typeof age !== 'number' || age < 0 ) return "Invalid or missing 'age'"
-    if( !campus || !validCampuses.includes( campus )) return "Invalid or missing 'campus'";
-    // Todo: more rules if needed
+function validateMovieData(movie){
+    const {title, director, year} = movie
+
+    if(!title || typeof title !== 'string') return "Invalid or missing 'title'"
+    if( year === undefined || typeof year !== 'number' || year < 1888 ) return "Invalid or missing 'year'"
+    if( !director || typeof director !== 'string') return "Invalid or missing 'director'";
 
     return null // the data is valid :)
 
 }
-*/
