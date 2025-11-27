@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ### patch
-PATCH http://localhost:3000/movies/4
+PUT http://localhost:3000/movies/3
 Content-Type: application/json
 
 {

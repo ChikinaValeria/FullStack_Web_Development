@@ -145,48 +145,43 @@ app.post('/movies', async (req, res)=> {
 
 });
 
-/*
-// Update a student data (student with a specific id)
-app.put('/students/:id', async (req, res)=>{
+// Update a movie data
+app.put('/movies/:id', async (req, res)=>{
     try {
         const id = parseInt(req.params.id);
         // First verify that the id is an integer
         if(isNaN(id))
-            return res.status(400).send("Invalid student ID")
+            return res.status(400).send("Invalid movie ID")
 
-        // Let's find the student with that ID. If not found, return 404
-        const existing = await studentCollection.findOne({id});
+        // Let's find the movie with that ID. If not found, return 404
+        const existing = await movieCollection.findOne({id});
         if(!existing){
-            return res.status(404).send("No student with that ID found")
+            return res.status(404).send("No movie with that ID found")
         }
 
+        // The movie with that id found -> we can proceed with updating but we have to validate :)
+        const updatedMovie = { ...existing, ...req.body }
 
-
-        // The student with that id found -> we can proceed with updating but we have to validate :)
-        const updatedStudent = { ...existing, ...req.body }
-
-        // Let's validate the updated student data
-        const error = validateStudentData(updatedStudent)
+        const error = validateMovieData(updatedMovie)
         if( error ){
             return res.status(400).send(error)
         }
 
-        // We don't want to update the _id in the mongo db so delete the _id fro the updatedStudent
-        delete updatedStudent._id // delete the field
+        // We don't want to update the _id in the mongo db so delete the _id from the updatedMovie
+        delete updatedMovie._id // delete the field
 
-        // Update the student in the mongoDB
-        await studentCollection.updateOne({id}, { $set: updatedStudent });
+        // Update the movie in the mongoDB
+        await movieCollection.updateOne({id}, { $set: updatedMovie });
         // $set == "Modify only these fields in the document - leave rest untouched in the database"
 
 
-        res.json(updatedStudent) // 200 OK
+        res.json(updatedMovie) // 200 OK
     } catch (err ){
-        console.error("Error inserting student:", err);
-        res.status(500).send("Internal server error with PUT /student:id")
+        console.error("Error inserting movie:", err);
+        res.status(500).send("Internal server error with PUT /movie:id")
     }
 
-})
-    */
+});
 
 // Delete movie by id
 app.delete('/movies/:id', async (req, res ) => {
@@ -216,7 +211,7 @@ app.use((req, res) => {
 
 
 async function generateNextId() {
-    // 1. Находим студента с максимальным id
+    // 1. Находим фильм с максимальным id
     const maxIdMovie = await movieCollection.findOne(
         {}, // Фильтр: без фильтрации, ищем по всей коллекции
         {
