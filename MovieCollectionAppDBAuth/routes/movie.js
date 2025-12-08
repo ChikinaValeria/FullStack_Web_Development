@@ -7,7 +7,7 @@ import { getAllMovies,
 } from '../controllers/movieController.js';
 import { validateMovie } from '../middleware/validateMovie.js';
 import { logger } from '../middleware/logger.js';
-//import {authenticateToken} from '../middleware/authenticateToken.js';
+import {authenticateToken} from '../middleware/authenticateToken.js';
 
 // create the router
 const movieRouter = Router();
@@ -16,9 +16,9 @@ const movieRouter = Router();
 //to validate data before we pass it to createMovie
 movieRouter.get('/', logger, getAllMovies)
 movieRouter.get('/:id', logger, getMovieById)
-movieRouter.post('/', logger, validateMovie, createMovie)
-movieRouter.put('/:id', logger, validateMovie, updateMovie)
-movieRouter.delete('/:id', logger, deleteMovie)
+movieRouter.post('/', logger, authenticateToken, validateMovie, createMovie)
+movieRouter.put('/:id', logger, authenticateToken, validateMovie, updateMovie)
+movieRouter.delete('/:id', logger, authenticateToken, deleteMovie)
 
 //export router
 export default movieRouter;
