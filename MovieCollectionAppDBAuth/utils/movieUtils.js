@@ -20,7 +20,7 @@ export const generateNextId = async() => {
     }
 }
 
-
+// legacy validation function
 export const validateMovieData = (movie) => {
     const {title, director, year} = movie
 
