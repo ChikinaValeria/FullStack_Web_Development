@@ -29,11 +29,11 @@ Content-Type: application/json
 }
 
 ### put
-PUT http://localhost:3000/movies/4
+PUT http://localhost:3000/movies/1
 Content-Type: application/json
 
 {
-    "title": "The departed-3",
+    //"title": "The departed-3",
     "director": "Helena Scorsese",
     "year": 2020
 }

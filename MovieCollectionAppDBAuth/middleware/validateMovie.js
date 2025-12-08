@@ -1,3 +1,4 @@
+// validateMovie.js
 import Joi from "joi"
 
 const movieSchema = Joi.object({
@@ -15,5 +16,5 @@ export const validateMovie = (req, res, next) => {
    }
    // return validated body (value) instead of body
    req.body = value;
-   next(); // the data is valid :)
+   next(); // the data is valid
 }

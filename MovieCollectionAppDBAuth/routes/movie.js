@@ -16,9 +16,9 @@ const movieRouter = Router();
 //to validate data before we pass it to createMovie
 movieRouter.get('/', logger, getAllMovies)
 movieRouter.get('/:id', logger, getMovieById)
-movieRouter.post('/', validateMovie, createMovie)
-movieRouter.put('/:id', validateMovie, updateMovie)
-movieRouter.delete('/:id', deleteMovie)
+movieRouter.post('/', logger, validateMovie, createMovie)
+movieRouter.put('/:id', logger, validateMovie, updateMovie)
+movieRouter.delete('/:id', logger, deleteMovie)
 
 //export router
 export default movieRouter;
