@@ -10,8 +10,8 @@ Content-Type: application/json
 
 {
     "title": "P",
-    //"director": "Christopher Nolan",
-    "year": 2025
+    "director": "Christopher Nolan",
+    "year": 2027
 
 }
 
@@ -39,4 +39,4 @@ Content-Type: application/json
 }
 
 ### delete movie by id
-DELETE http://localhost:3000/movies/5
+DELETE http://localhost:3000/movies/4
