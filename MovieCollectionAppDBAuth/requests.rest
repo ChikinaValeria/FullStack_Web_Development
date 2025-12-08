@@ -23,7 +23,6 @@ POST http://localhost:3000/movies
 Content-Type: application/json
 
 {
-    "id": 5,
     "title": "The Alien",
     "director": "Christopher Nolan",
     "year": 2019

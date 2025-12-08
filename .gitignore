@@ -9,3 +9,5 @@ MovieCollectionAppFullCRUD/.vscode/
 FastApiMovieCollectionApp/_pycache_
 MovieCollectionAppDBConnection/node_modules
 MovieCollectionAppDBConnection/.env
+MovieCollectionAppDBAuth/node_modules
+MovieCollectionAppDBAuth/.env
