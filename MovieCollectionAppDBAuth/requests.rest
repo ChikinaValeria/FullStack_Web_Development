@@ -9,9 +9,9 @@ POST http://localhost:3000/movies
 Content-Type: application/json
 
 {
-    "title": "The Departed",
-    "director": "Christopher Nolan",
-    "year": 1345
+    "title": "P",
+    //"director": "Christopher Nolan",
+    "year": 2025
 
 }
 
@@ -39,4 +39,4 @@ Content-Type: application/json
 }
 
 ### delete movie by id
-DELETE http://localhost:3000/movies/4
+DELETE http://localhost:3000/movies/5

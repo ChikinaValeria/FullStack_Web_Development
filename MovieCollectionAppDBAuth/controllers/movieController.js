@@ -4,7 +4,7 @@ import {generateNextId} from "../utils/movieUtils.js";
 export const getAllMovies = async (req, res)=> {
     try {
         // Get all movies from the database. Find with only {} finds with no filters
-        let result = await movieCollection.find({}).toArray();
+        let result = await getMovieCollection().find({}).toArray();
 
         if(req.query.title){
             const title = req.query.title.toLowerCase()
@@ -30,7 +30,7 @@ export const getAllMovies = async (req, res)=> {
         console.log( "GET / movies error: ", err)
         res.status(500).json({error: "Internal server error. Some problem with the database."})
     }
-});
+};
 
 
 export const getMovieById = async (req,res)=>{
@@ -39,7 +39,7 @@ export const getMovieById = async (req,res)=>{
         // Find the movie with the given id and return if found
         const id = parseInt(req.params.id)
         // Get the movie from the Mongo DB
-        const movie = await movieCollection.findOne({id});
+        const movie = await getMovieCollection().findOne({id});
         if( movie ){
             res.json(movie); // 200 OK
         }
@@ -49,7 +49,7 @@ export const getMovieById = async (req,res)=>{
     } catch (error){
         res.status(500).send("Internal server error with DB connection: ", err)
     }
-});
+};
 
 export const createMovie = async (req, res)=> {
     try {
@@ -62,7 +62,7 @@ export const createMovie = async (req, res)=> {
         };
 
         // Add the new movie to MongoDB
-        const result = await movieCollection.insertOne( newMovie )
+        const result = await getMovieCollection().insertOne( newMovie )
 
         res.status(201).json(newMovie)
     } catch (err){
@@ -71,9 +71,9 @@ export const createMovie = async (req, res)=> {
     }
 
 
-});
+};
 
-export const updatedMovie = async (req, res)=>{
+export const updateMovie = async (req, res)=>{
     try {
         const id = parseInt(req.params.id);
         //verify that the id is an integer
@@ -81,7 +81,7 @@ export const updatedMovie = async (req, res)=>{
             return res.status(400).send("Invalid movie ID")
 
         // find the movie with that ID
-        const existing = await movieCollection.findOne({id});
+        const existing = await getMovieCollection().findOne({id});
         if(!existing){
             return res.status(404).send("No movie with that ID found")
         }
@@ -93,7 +93,7 @@ export const updatedMovie = async (req, res)=>{
         delete updatedMovie._id // delete the field
 
         // Update the movie in the mongoDB
-        await movieCollection.updateOne({id}, { $set: updatedMovie });
+        await getMovieCollection().updateOne({id}, { $set: updatedMovie });
         // $set == "Modify only these fields in the document - leave rest untouched in the database"
 
 
@@ -103,7 +103,7 @@ export const updatedMovie = async (req, res)=>{
         res.status(500).send("Internal server error with PUT /movie:id")
     }
 
-});
+};
 
 export const deleteMovie  = async (req, res ) => {
     try {
@@ -111,7 +111,7 @@ export const deleteMovie  = async (req, res ) => {
         if(isNaN(id))
             return res.status(400).send("Invalid movie ID")
 
-        const result = await movieCollection.deleteOne({id});
+        const result = await getMovieCollection().deleteOne({id});
 
         if( result.deletedCount === 0 ){
             return res.status(404).send("No movie with that ID found. Nothing deleted")
@@ -121,5 +121,5 @@ export const deleteMovie  = async (req, res ) => {
     }catch (err){
         res.status(500).send("Internal server error with DELETE /movie:id")
     }
-})
+}
 

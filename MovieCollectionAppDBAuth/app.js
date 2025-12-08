@@ -1,8 +1,9 @@
+import express from "express";
 //access to .env
 import dotenv from "dotenv";
 dotenv.config();
 
-import express from "express";
+
 import movieRouter from "./routes/movie.js";
 import { initDatabase } from "./config/dbConfig.js";
 //import authenticationRouter from "./routes/authentication.js"
