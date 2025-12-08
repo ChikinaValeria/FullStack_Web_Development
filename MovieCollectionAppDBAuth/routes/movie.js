@@ -20,4 +20,5 @@ movieRouter.post('/', validateMovie, createMovie)
 movieRouter.put('/:id', validateMovie, updateMovie)
 movieRouter.delete('/:id', deleteMovie)
 
+//export router
 export default movieRouter;
