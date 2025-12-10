@@ -11,3 +11,6 @@ MovieCollectionAppDBConnection/node_modules
 MovieCollectionAppDBConnection/.env
 MovieCollectionAppDBAuth/node_modules
 MovieCollectionAppDBAuth/.env
+PatientCollectionApp/node_modules
+PatientCollectionApp/.env
+PatientCollectionApp/.vscode/
