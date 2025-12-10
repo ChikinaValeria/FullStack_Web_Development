@@ -12,10 +12,10 @@ import {authenticateToken} from '../middleware/authenticateToken.js';
 const patientRouter = Router();
 
 patientRouter.get('/', logger, getAllPatients)
-patientRouter.get('/:id', logger, getPatientById)
-patientRouter.post('/', logger, authenticateToken, validatePatient, createPatient)
-patientRouter.put('/:id', logger, authenticateToken, validatePatient, updatePatient)
-patientRouter.delete('/:id', logger, authenticateToken, deletePatient)
+patientRouter.get('/:id', logger, authenticateToken(['admin', 'regular']), getPatientById)
+patientRouter.post('/', logger, authenticateToken(['admin']), validatePatient, createPatient)
+patientRouter.put('/:id', logger, authenticateToken(['admin']), validatePatient, updatePatient)
+patientRouter.delete('/:id', logger, authenticateToken(['admin']), deletePatient)
 
 
 export default patientRouter;
