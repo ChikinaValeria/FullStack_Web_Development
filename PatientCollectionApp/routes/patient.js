@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { getAllMovies,
-    getMovieById,
-    createMovie,
-    updateMovie,
-    deleteMovie
+import { getAllPatients,
+    getPatientById,
+    createPatient,
+    updatePatient,
+    deletePatient
 } from '../controllers/patientController.js';
-import { validatePation } from '../middleware/validatePatient.js';
+import { validatePatient } from '../middleware/validatePatient.js';
 import { logger } from '../middleware/logger.js';
 import {authenticateToken} from '../middleware/authenticateToken.js';
 

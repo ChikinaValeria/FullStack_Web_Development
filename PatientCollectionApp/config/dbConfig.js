@@ -26,7 +26,7 @@ export const initDatabase = async () => {
         console.log("Connected to MongoDB");
 
         db = client.db(dbName) // deleted const
-        patientCollection = db.collection("movies");
+        patientCollection = db.collection("patients");
 
         const count = await patientCollection.countDocuments();
         if( count === 0 ){
@@ -44,4 +44,4 @@ export const initDatabase = async () => {
 
 // Export methods to access the db configured and connected here
 export const getDb = () => db;
-export const getMovieCollection = () => movieCollection;
+export const getPatientCollection = () => patientCollection;
