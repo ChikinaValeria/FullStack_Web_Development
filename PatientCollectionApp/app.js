@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-import movieRouter from "./routes/patient.js";
+import patientRouter from "./routes/patient.js";
 import { initDatabase } from "./config/dbConfig.js";
 import authenticationRouter from "./routes/authentication.js"
 
