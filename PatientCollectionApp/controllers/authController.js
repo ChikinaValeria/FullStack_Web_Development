@@ -8,7 +8,7 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export const signup = async (req, res) => {
-    const {name, username, password} = req.body;
+    const {name, username, role, password} = req.body;
 
     if (!username || !password)
         return res.status(400).json({error: 'username and password required'});
@@ -17,17 +17,19 @@ export const signup = async (req, res) => {
     if (existing)
         return res.status(409).json({error: 'username already exists'});// 409 conflict
 
+    const userRole = (role && role.toLowerCase() === 'admin') ? 'admin' : 'regular';
+
     const passwordHash = await bcrypt.hash(password, 10);
     const newUser = {
         id: getNextUserId(),
         name,
-        username,
+        role: userRole,
         passwordHash
     };
 
     users.push(newUser);
     console.log("Users now: ", users)
-    res.status(201).json({id: newUser.id, username: newUser.username, name: newUser.name});
+    res.status(201).json({id: newUser.id, name: newUser.name, role: newUser.role});
 };
 
 export const login = async(req, res) => {
@@ -42,7 +44,7 @@ export const login = async(req, res) => {
         return res.status(401).json({error: 'username and password do not match'});
 
     // creating token
-    const payload = {id: user.id, username: user.username};
+    const payload = {id: user.id, username: user.username, role: user.role};
 
     const token = jwt.sign(payload, JWT_SECRET, {expiresIn: '1h'});
     console.log("Bearer token created: ", token)
