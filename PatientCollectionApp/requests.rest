@@ -1,0 +1,60 @@
+### 00) signup -create a new user
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "name": "Onni Virtanen",
+    "role": "regular"
+    "password": "sala124"
+}
+
+### 0) login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "name": "Onni Virtanen",
+    "password": "sala124"
+}
+
+### 1) get all patients
+GET http://localhost:3000/patient
+
+### 2) get patient with id 2
+GET http://localhost:3000/patient/1
+
+### 3) add new patient
+POST http://localhost:3000/patient
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJSb2NreV9Pbm5pIiwiaWF0IjoxNzY1MjAxNzY3LCJleHAiOjE3NjUyMDUzNjd9.tHa0c4L_pbxZX4Gw6Z9sDbVkcX_gxbuN9V2h0SU0_NI
+Content-Type: application/json
+
+{
+    "name": "Anna Lee",
+    "age": 88,
+    "department": "cardiology",
+    "diagnosis": "Heart Stroke",
+    "accepted": "2025-12-15"
+
+}
+
+### 4) get with query parameters
+GET http://localhost:3000/patient?year=1999
+
+
+### put
+PUT http://localhost:3000/patient/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJSb2NreV9Pbm5pIiwiaWF0IjoxNzY1MjAxNzY3LCJleHAiOjE3NjUyMDUzNjd9.tHa0c4L_pbxZX4Gw6Z9sDbVkcX_gxbuN9V2h0SU0_NI
+Content-Type: application/json
+
+{
+    "name": "Anna Lee",
+    "age": 87,
+    "department": "Immunology",
+    "diagnosis": "Heart Stroke",
+    "accepted": "2025-12-15"
+
+}
+
+### delete movie by id
+DELETE http://localhost:3000/patient/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJSb2NreV9Pbm5pIiwiaWF0IjoxNzY1MjAxNzY3LCJleHAiOjE3NjUyMDUzNjd9.tHa0c4L_pbxZX4Gw6Z9sDbVkcX_gxbuN9V2h0SU0_NI
