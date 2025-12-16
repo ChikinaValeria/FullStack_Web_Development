@@ -8,12 +8,12 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export const signup = async (req, res) => {
-    const {name, username, role, password} = req.body;
+    const {name, role, password} = req.body;
 
-    if (!username || !password)
+    if (!name || !password)
         return res.status(400).json({error: 'username and password required'});
 
-    const existing = users.find(u => u.username === username);
+    const existing = users.find(u => u.name === name);
     if (existing)
         return res.status(409).json({error: 'username already exists'});// 409 conflict
 
@@ -34,8 +34,8 @@ export const signup = async (req, res) => {
 
 export const login = async(req, res) => {
     // create JWD bearer token if username and password are correct
-    const {username, password} = req.body;
-    const user = users.find( u => u.username === username);
+    const {name, password} = req.body;
+    const user = users.find( u => u.name === name);
     if(!user)
         return res.status(401).json({error: 'No user with this username'});
 
@@ -44,7 +44,7 @@ export const login = async(req, res) => {
         return res.status(401).json({error: 'username and password do not match'});
 
     // creating token
-    const payload = {id: user.id, username: user.username, role: user.role};
+    const payload = {id: user.id, name: user.name, role: user.role};
 
     const token = jwt.sign(payload, JWT_SECRET, {expiresIn: '1h'});
     console.log("Bearer token created: ", token)

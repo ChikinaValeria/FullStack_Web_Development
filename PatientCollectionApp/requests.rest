@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "name": "Onni Virtanen",
-    "role": "regular"
+    "role": "regular",
     "password": "sala124"
 }
 
@@ -19,9 +19,11 @@ Content-Type: application/json
 
 ### 1) get all patients
 GET http://localhost:3000/patient
+Authorization: Bearer
 
 ### 2) get patient with id 2
 GET http://localhost:3000/patient/1
+Authorization: Bearer
 
 ### 3) add new patient
 POST http://localhost:3000/patient
