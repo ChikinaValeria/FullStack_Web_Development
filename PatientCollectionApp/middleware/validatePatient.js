@@ -10,7 +10,6 @@ const patientSchema = Joi.object({
 
 // This is a custom function to validate the HTTP request data from the client
 export const validatePatient = (req, res, next) => {
-    // considering also value ('Unknown' director)
    const { error, value } = patientSchema.validate( req.body );
    if( error ){
         return res.status(400).json({ error: error.details[0].message })

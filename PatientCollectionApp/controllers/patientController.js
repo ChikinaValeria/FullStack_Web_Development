@@ -1,22 +1,22 @@
 import { getPatientCollection } from "../config/dbConfig.js";
 import {generateNextId} from "../utils/patientUtils.js";
 
-export const getAllPatients = async (req, res)=> {
+/*export const getAllPatients = async (req, res)=> {
     try {
         let result = await getPatientCollection().find({}).toArray();
 
         if(req.query.name){
-            const name = req.query.title.toLowerCase()
+            const name = req.query.name.toLowerCase()
             result = result.filter( patient => patient.name.toLowerCase() === name )
          }
 
         if( req.query.department){
-            const requestedDepartment = parseInt(req.query.department);
+            const requestedDepartment = req.query.department.toLowerCase();
 
             if(isNaN(requestedDepartment)){
                 return res.status(400).send("Invalid 'department' parameter. Must be a number.");
             }
-            result = result.filter( patient => patient.year === requestedDepartment );
+            result = result.filter( patient => patient.department.toLowerCase() === requestedDepartment );
         }
 
         if( req.query.diagnosis){
@@ -28,6 +28,51 @@ export const getAllPatients = async (req, res)=> {
     catch( err ){
         console.log( "GET / patients error: ", err)
         res.status(500).json({error: "Internal server error. Some problem with the database."})
+    }
+};*/
+
+export const getAllPatients = async (req, res) => {
+    try {
+        // Object to build the MongoDB query filter
+        const filter = {};
+
+        if (req.query.name) {
+            filter.name = req.query.name;
+        }
+
+        if (req.query.department) {
+            const requestedDepartment = req.query.department.toLowerCase();
+            filter.department = requestedDepartment;
+        }
+
+        if (req.query.diagnosis) {
+            const diagnosis = req.query.diagnosis.toLowerCase();
+            filter.diagnosis = diagnosis;
+        }
+
+        if (req.query.fromDate || req.query.toDate) {
+            filter.accepted = {};
+            // If a start date is provided (fromDate)
+            if (req.query.fromDate) {
+                // $gte: Greater Than or Equal
+                filter.accepted.$gte = req.query.fromDate;
+            }
+
+            // If an end date is provided (toDate)
+            if (req.query.toDate) {
+                // $lte: Less Than or Equal
+                filter.accepted.$lte = req.query.toDate;
+            }
+        }
+
+        // Execute the MongoDB query using the filter object
+        // MongoDB will perform all filtering, which is much faster than in-memory filtering
+        let result = await getPatientCollection().find(filter).toArray();
+
+        res.json(result);
+    } catch (err) {
+        console.log("GET / patients error: ", err);
+        res.status(500).json({ error: "Internal server error. Some problem with the database." });
     }
 };
 
