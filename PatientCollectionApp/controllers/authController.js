@@ -1,3 +1,4 @@
+// authController.js
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import {users, getNextUserId} from '../data/usersData.js'

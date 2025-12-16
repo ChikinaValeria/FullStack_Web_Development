@@ -1,3 +1,4 @@
+//userData.js
 import bcrypt from 'bcrypt'
 
 export const users = [

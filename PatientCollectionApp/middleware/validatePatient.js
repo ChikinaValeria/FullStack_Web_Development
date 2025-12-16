@@ -2,7 +2,7 @@ import Joi from "joi"
 
 const patientSchema = Joi.object({
     name: Joi.string().min(1).max(100).default('Unknown patient'),
-    age: Joi.number().integer().min(0).max(130).default('Unknown age'),
+    age: Joi.number().integer().min(0).max(130).default(null),
     department: Joi.string().valid('cardiology', 'neurology', 'dermatology').required(),
     diagnosis: Joi.string().min(5).max(100).default('Unknown desease'),
     accepted: Joi.date().iso().min('2025-01-01').required()

@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
     "name": "Pekka Virtanen",
-    "role": "regular",
-    "password": "sala126"
+    "role": "admin",
+    "password": "sala125"
 }
 
 ### 0) login
@@ -14,16 +14,16 @@ Content-Type: application/json
 
 {
     "name": "Pekka Virtanen",
-    "password": "sala126"
+    "password": "sala125"
 }
 
 ### 1.1) get all patients
 GET http://localhost:3000/patient
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6InJlZ3VsYXIiLCJpYXQiOjE3NjU4Nzg1NjIsImV4cCI6MTc2NTg4MjE2Mn0.Ffa_LC7Y_3zASi0oSL9gTejgwkDFXvLfTOdRxq0BtOU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1ODg2MjY0LCJleHAiOjE3NjU4ODk4NjR9.QaFVRGo9yaOkd_AGxpwjsihaBzQWiRNXfiDaxI8i2L8
 
 ### 1.2) get patients, filtered by name
-GET http://localhost:3000/patient?name=Pekka suolainen
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6InJlZ3VsYXIiLCJpYXQiOjE3NjU4Nzg1NjIsImV4cCI6MTc2NTg4MjE2Mn0.Ffa_LC7Y_3zASi0oSL9gTejgwkDFXvLfTOdRxq0BtOU
+GET http://localhost:3000/patient?name=oNNi
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1ODg2MjY0LCJleHAiOjE3NjU4ODk4NjR9.QaFVRGo9yaOkd_AGxpwjsihaBzQWiRNXfiDaxI8i2L8
 
 ### 1.3) get patients, filtered by department
 GET http://localhost:3000/patient?department=carDiology
@@ -35,31 +35,31 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6I
 
 
 ### 1.5) get patients, filtered by date of acceptance
-GET http://localhost:3000/patient?toDate=2025-12-01
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6InJlZ3VsYXIiLCJpYXQiOjE3NjU4Nzg1NjIsImV4cCI6MTc2NTg4MjE2Mn0.Ffa_LC7Y_3zASi0oSL9gTejgwkDFXvLfTOdRxq0BtOU
+GET http://localhost:3000/patient?fromDate=2025-12-01
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1ODg2MjY0LCJleHAiOjE3NjU4ODk4NjR9.QaFVRGo9yaOkd_AGxpwjsihaBzQWiRNXfiDaxI8i2L8
 
 
-### 2) get patient with id 2
-GET http://localhost:3000/patient/4
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6InJlZ3VsYXIiLCJpYXQiOjE3NjU4Nzg1NjIsImV4cCI6MTc2NTg4MjE2Mn0.Ffa_LC7Y_3zASi0oSL9gTejgwkDFXvLfTOdRxq0BtOU
+### 2) get patient by id
+GET http://localhost:3000/patient/69414a5d60455af7db00019d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1ODg2MjY0LCJleHAiOjE3NjU4ODk4NjR9.QaFVRGo9yaOkd_AGxpwjsihaBzQWiRNXfiDaxI8i2L8
 
 ### 3) add new patient
 POST http://localhost:3000/patient
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6InJlZ3VsYXIiLCJpYXQiOjE3NjU4Nzg1NjIsImV4cCI6MTc2NTg4MjE2Mn0.Ffa_LC7Y_3zASi0oSL9gTejgwkDFXvLfTOdRxq0BtOU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1ODg2MjY0LCJleHAiOjE3NjU4ODk4NjR9.QaFVRGo9yaOkd_AGxpwjsihaBzQWiRNXfiDaxI8i2L8
 Content-Type: application/json
 
 {
     "name": "Anna Lee",
     "age": 88,
-    "department": "neurology",
+    "department": "proctology",
     "diagnosis": "Heart Stroke",
     "accepted": "2025-12-16"
 
 }
 
 ### 4) update patient
-PUT http://localhost:3000/patient/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6InJlZ3VsYXIiLCJpYXQiOjE3NjU4Nzg1NjIsImV4cCI6MTc2NTg4MjE2Mn0.Ffa_LC7Y_3zASi0oSL9gTejgwkDFXvLfTOdRxq0BtOU
+PUT http://localhost:3000/patient/69414a5d60455af7db00019d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1ODg2MjY0LCJleHAiOjE3NjU4ODk4NjR9.QaFVRGo9yaOkd_AGxpwjsihaBzQWiRNXfiDaxI8i2L8
 Content-Type: application/json
 
 {
@@ -72,5 +72,5 @@ Content-Type: application/json
 }
 
 ### 5) delete patient by id
-DELETE http://localhost:3000/patient/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6InJlZ3VsYXIiLCJpYXQiOjE3NjU4Nzg1NjIsImV4cCI6MTc2NTg4MjE2Mn0.Ffa_LC7Y_3zASi0oSL9gTejgwkDFXvLfTOdRxq0BtOU
+DELETE http://localhost:3000/patient/69414a5d60455af7db00019d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlBla2thIFZpcnRhbmVuIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1ODg2MjY0LCJleHAiOjE3NjU4ODk4NjR9.QaFVRGo9yaOkd_AGxpwjsihaBzQWiRNXfiDaxI8i2L8
